@@ -1,0 +1,43 @@
+<div class="container">
+    <h1 class="mt-5 text-primary">Thêm sản phẩm mới</h1>
+    <button class="btn btn-primary mt-3 mb-3" onclick="window.location.href='/';">Quay lại trang chủ</button>
+
+    <form action="/add" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="productName" class="form-label">Tên sản phẩm</label>
+            <input type="text" class="form-control" id="productName" name="productName">
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Giá sản phẩm</label>
+            <input type="number" class="form-control" id="price" name="price">
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Ảnh minh họa</label>
+            <div class="input-group">
+                <input type="file" class="form-control" id="image" name="image" accept="image/*"
+                    onchange="updateImagePath(this)">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Mô tả sản phẩm</label>
+            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+        </div>
+
+        {{#if errorMessage}}
+        <div class="alert alert-danger" role="alert">
+            {{errorMessage}}
+        </div>
+        {{/if}}
+
+        <button type="submit" class="btn btn-success">Thêm sản phẩm</button>
+    </form>
+</div>
+
+<script>
+    function updateImagePath(input) {
+        var imagePath = document.getElementById('imagePath');
+        if (input.files && input.files[0]) {
+            imagePath.value = input.files[0].name;
+        }
+    }
+</script>

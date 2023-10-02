@@ -1,0 +1,24 @@
+<div class="container">
+    <h1 class="text-center mt-5">Đăng nhập</h1>
+
+    <form action="/login" method="post">
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" width="200px">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Mật khẩu</label>
+            <input type="password" class="form-control" id="password" name="password" width="200px">
+        </div>
+
+        {{#if error}}
+        <div class="alert alert-danger">
+            {{error}}
+        </div>
+        {{/if}}
+
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,47 @@
+<div class="container">
+    <h1>Chỉnh sửa thông tin sản phẩm</h1>
+
+    <!-- Form chỉnh sửa thông tin sản phẩm -->
+    <form action="/detail" method="POST">
+        <!-- Tên sản phẩm -->
+        <div class="form-group">
+            <label for="productName">Tên sản phẩm</label>
+            <input type="text" class="form-control" id="productName" name="productName" value="{{productName}}"
+                required>
+        </div>
+
+        <!-- Giá -->
+        <div class="form-group">
+            <label for="price">Giá</label>
+            <input type="number" class="form-control" id="price" name="price" value="{{price}}" required>
+        </div>
+
+        <!-- Nút chỉnh sửa -->
+        <button type="submit" class="btn btn-primary">Chỉnh sửa</button>
+    </form>
+
+    <script>
+        function editProduct() {
+            // Lấy tên sản phẩm và giá mới từ form
+            var newProductName = document.getElementById('productName').value;
+            var newPrice = document.getElementById('price').value;
+
+            // Cập nhật thông tin sản phẩm trên server
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/api/products/update');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({
+                id: {{ productId }},
+        productName: newProductName,
+            price: newPrice
+            }));
+
+        // Redirect người dùng về trang chủ
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                window.location.href = '/';
+            }
+        };
+        }
+    </script>
+</div>

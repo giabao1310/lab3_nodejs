@@ -1,0 +1,86 @@
+<div class="container">
+    <h1 class="mt-5 text-primary">Danh sách sản phẩm</h1>
+    <button class="btn btn-success" onclick="window.location.href='/add';">Thêm sản phẩm</button>
+    <p>Chọn một sản phẩm cụ thể để xem chi tiết</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td class="productName">iPhone XS</td>
+                <td class="price">$1,199</td>
+                <td>
+                    <button class="btn btn-primary" onclick="showDetail('iPhone XS', '$1,199')">Chỉnh sửa</button>
+                    <button class="btn btn-danger" onclick="deleteProduct(event)">Xóa</button>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td class="productName">iPhone 12 Pro</td>
+                <td class="price">$1,399</td>
+                <td>
+                    <button class="btn btn-primary" onclick="showDetail('iPhone 12 Pro', '$1,399')">Chỉnh sửa</button>
+                    <button class="btn btn-danger" onclick="deleteProduct(event)">Xóa</button>
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td class="productName">Macbook Pro 13" M1</td>
+                <td class="price">$1,299</td>
+                <td>
+                    <button class="btn btn-primary" onclick="showDetail('Macbook Pro 13&quot; M1', '$1,299')">Chỉnh
+                        sửa</button>
+                    <button class="btn btn-danger" onclick="deleteProduct(event)">Xóa</button>
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td class="productName">Airpod Pro</td>
+                <td class="price">$499</td>
+                <td>
+                    <button class="btn btn-primary" onclick="showDetail('Airpod Pro', '$499')">Chỉnh sửa</button>
+                    <button class="btn btn-danger" onclick="deleteProduct(event)">Xóa</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function showDetail(productName, price) {
+        var encodedProductName = encodeURIComponent(productName);
+        var encodedPrice = encodeURIComponent(price);
+        var detailUrl = '/detail?productName=' + encodedProductName + '&price=' + encodedPrice;
+
+        // Chuyển sang trang detail.handlebars
+        window.location.href = detailUrl;
+    }
+
+    function deleteProduct(event) {
+        // Lấy nút xóa của sản phẩm cần xóa
+        const deleteButton = event.target;
+
+        // Lấy số id của sản phẩm cần xóa
+        const id = deleteButton.closest('tr').querySelector('td:first-child').textContent;
+
+        // Gửi `/delete` để xóa sản phẩm
+        fetch('/delete', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id }),
+        }).then(response => response.json())
+            .then(() => {
+                // Redirect về trang chủ
+                window.location.href = '/';
+            });
+    }
+</script>
