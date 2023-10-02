@@ -26,6 +26,7 @@ const PASSWORD = process.env.PASSWORD;
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 ///Biến user này dùng để lưu thông tin đăng nhập
 var user = null;
@@ -109,27 +110,31 @@ function generateProductId() {
 
 // Method POST route '/delete'. Thực hiện xóa sản phẩm
 app.post('/delete', (req, res) => {
-    // Lấy số id của sản phẩm cần xóa
+    // Get the ID from the request body
     const id = req.body.id;
+    console.log("🚀 ~ file: index.js:114 ~ app.post ~ id:", id);
 
-    // Tìm kiếm sản phẩm cần xóa
-    const product = products.find(product => product.id === id);
+    // Find the index of the product with the given ID in the products array
+    const index = products.findIndex(product => product.id == id);
+    console.log("🚀 ~ file: index.js:119 ~ app.post ~ products:", products)
+    console.log("🚀 ~ file: index.js:119 ~ app.post ~ index:", index)
 
-    // Nếu không tìm thấy sản phẩm, trả về lỗi 404
-    if (!product) {
+    // If the index is -1, it means the product with the given ID doesn't exist
+    if (index == -1) {
+        // Redirect to a 404 page or handle the error as needed
         res.status(404).render('404');
         return;
     }
 
-    // Xóa sản phẩm khỏi danh sách sản phẩm
-    products = products.filter(product => product.id !== id);
+    // Remove the product with the given ID from the products array
+    products.splice(index, 1);
 
-    // Fill vào chỗ trống bằng các sản phẩm bên dưới
+    // Update the IDs of the remaining products
     for (let i = 0; i < products.length; i++) {
         products[i].id = i + 1;
     }
 
-    // Redirect về trang chủ
+    // Redirect back to the home page
     res.redirect('/');
 });
 

@@ -20,7 +20,7 @@
                 <td>
                     <button class="btn btn-primary" onclick="showDetail('{{this.name}}', '${{this.price}}')">Chỉnh
                         sửa</button>
-                    <button class="btn btn-danger" onclick="deleteProduct(event)">Xóa</button>
+                    <button class="btn btn-danger" data-id="{{this.id}}" onclick="deleteProduct(event)">Xóa</button>
                 </td>
             </tr>
             {{/each}}
@@ -40,23 +40,24 @@
     }
 
     function deleteProduct(event) {
-        // Lấy nút xóa của sản phẩm cần xóa
+        // Get the clicked delete button
         const deleteButton = event.target;
 
-        // Lấy số id của sản phẩm cần xóa
-        const id = deleteButton.closest('tr').querySelector('td:first-child').textContent;
+        // Get the product ID from the data-id attribute
+        const id = deleteButton.getAttribute('data-id');
 
-        // Gửi `/delete` để xóa sản phẩm
+        // Send a POST request to /delete with the product ID
         fetch('/delete', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ id }),
-        }).then(response => response.json())
+        })
+            .then(response => response.json())
             .then(() => {
-                // Redirect về trang chủ
-                window.location.href = '/';
             });
+        location.reload();
     }
+
 </script>
