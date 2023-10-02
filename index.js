@@ -90,7 +90,7 @@ app.post('/add', upload.single('image'), async (req, res) => {
     // Create a new product object
     const newProduct = {
         id: productId,
-        productName,
+        name: productName,
         price,
         description,
         image: image.filename, // Store the filename in the product object

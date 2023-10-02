@@ -12,45 +12,21 @@
             </tr>
         </thead>
         <tbody>
+            {{#each products}}
             <tr>
-                <td>1</td>
-                <td class="productName">iPhone XS</td>
-                <td class="price">$1,199</td>
+                <td>{{this.id}}</td>
+                <td class="productName">{{this.name}}</td>
+                <td class="price">${{this.price}}</td>
                 <td>
-                    <button class="btn btn-primary" onclick="showDetail('iPhone XS', '$1,199')">Chỉnh sửa</button>
-                    <button class="btn btn-danger" onclick="deleteProduct(event)">Xóa</button>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td class="productName">iPhone 12 Pro</td>
-                <td class="price">$1,399</td>
-                <td>
-                    <button class="btn btn-primary" onclick="showDetail('iPhone 12 Pro', '$1,399')">Chỉnh sửa</button>
-                    <button class="btn btn-danger" onclick="deleteProduct(event)">Xóa</button>
-                </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td class="productName">Macbook Pro 13" M1</td>
-                <td class="price">$1,299</td>
-                <td>
-                    <button class="btn btn-primary" onclick="showDetail('Macbook Pro 13&quot; M1', '$1,299')">Chỉnh
+                    <button class="btn btn-primary" onclick="showDetail('{{this.name}}', '${{this.price}}')">Chỉnh
                         sửa</button>
                     <button class="btn btn-danger" onclick="deleteProduct(event)">Xóa</button>
                 </td>
             </tr>
-            <tr>
-                <td>4</td>
-                <td class="productName">Airpod Pro</td>
-                <td class="price">$499</td>
-                <td>
-                    <button class="btn btn-primary" onclick="showDetail('Airpod Pro', '$499')">Chỉnh sửa</button>
-                    <button class="btn btn-danger" onclick="deleteProduct(event)">Xóa</button>
-                </td>
-            </tr>
+            {{/each}}
         </tbody>
     </table>
+
 </div>
 
 <script>
