@@ -74,11 +74,7 @@ app.get('/detail', (req, res) => {
 //Method POST route '/add'. Thực hiện thêm mới sản phẩm
 app.post('/add', upload.single('image'), async (req, res) => {
     const { productName, price, description } = req.body;
-    console.log("🚀 ~ file: index.js:74 ~ app.post ~ description:", description);
-    console.log("🚀 ~ file: index.js:74 ~ app.post ~ price:", price);
-    console.log("🚀 ~ file: index.js:74 ~ app.post ~ productName:", productName);
     const image = req.file; // Đối tượng file ảnh được gửi lên
-    console.log("🚀 ~ file: index.js:78 ~ app.post ~ image:", image);
 
     // Validation
     if (!productName || !price || !description || !image) {
@@ -112,12 +108,9 @@ function generateProductId() {
 app.post('/delete', (req, res) => {
     // Get the ID from the request body
     const id = req.body.id;
-    console.log("🚀 ~ file: index.js:114 ~ app.post ~ id:", id);
 
     // Find the index of the product with the given ID in the products array
     const index = products.findIndex(product => product.id == id);
-    console.log("🚀 ~ file: index.js:119 ~ app.post ~ products:", products)
-    console.log("🚀 ~ file: index.js:119 ~ app.post ~ index:", index)
 
     // If the index is -1, it means the product with the given ID doesn't exist
     if (index == -1) {
